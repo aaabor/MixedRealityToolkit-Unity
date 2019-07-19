@@ -128,6 +128,11 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
                         { "<PROJECT_RELATIVE_PATH>", Path.GetFileName(projectInfo.ReferencePath.AbsolutePath) },
                         { "<PROJECT_GUID>", projectInfo.Guid.ToString().ToUpper() } }));
 
+            if (!projectEntryTemplateBody.EndsWith(Environment.NewLine))
+            {
+                toReturn.AppendLine();  // ensure that the intial line ends with a new line character
+            }
+
             if (projectInfo.ProjectDependencies.Count > 0)
             {
                 string projectDependencyStartSection = "    ProjectSection(ProjectDependencies) = postProject";
@@ -244,9 +249,9 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
                 solutionTemplateText = Utilities.ReplaceTokens(solutionTemplateText, new Dictionary<string, string>()
                 {
                     { projectEntryTemplate, string.Join(string.Empty, projectEntries)},
-                    { configurationPlatformEntry, string.Join("\n", configPlatforms)},
-                    { configurationPlatformMappingTemplate, string.Join("\n", configurationMappings) },
-                    { configurationPlatformEnabledTemplate, string.Join("\n", enabledConfigurations) }
+                    { configurationPlatformEntry, string.Join(Environment.NewLine, configPlatforms)},
+                    { configurationPlatformMappingTemplate, string.Join(Environment.NewLine, configurationMappings) },
+                    { configurationPlatformEnabledTemplate, string.Join(Environment.NewLine, enabledConfigurations) }
                 });
             }
             else
