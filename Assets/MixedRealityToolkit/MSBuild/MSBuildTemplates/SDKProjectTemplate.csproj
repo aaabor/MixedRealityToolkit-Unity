@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <!--anborod: This is a weird thing, it is a required property (even if commented)-->
-    <!--<TargetFrameworks>netstandard2.0;uap10.0;net46</TargetFrameworks> -->
+    <!-- Required for nuget restore -->
+    <TargetFrameworks>netstandard2.0;uap10.0;net46</TargetFrameworks>
     
     <ProjectGuid><!--PROJECT_GUID_TOKEN--></ProjectGuid>
     <AllowUnsafeBlocks><!--ALLOW_UNSAFE_TOKEN--></AllowUnsafeBlocks>
@@ -46,8 +46,8 @@
 
   <!-- This is special cased here for WSA player only-->
   <PropertyGroup>
-    <BaseIntermediateOutputPath>$(BuildFolder)obj\$(UnityConfiguration)\$(UnityPlatform)\$(ProjectGuid)\</BaseIntermediateOutputPath>
-    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(BuildFolder)obj\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(UnityConfiguration)\$(UnityPlatform)\$(ProjectGuid)\</IntermediateOutputPath>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(UnityConfiguration)|$(UnityPlatform)' == 'Player|WSA'">
