@@ -14,28 +14,33 @@ steps:
 # notifications earlier in the CI process.
 - template: tests.yml
 
-# Build UWP x86
-- template: tasks/unitybuild.yml
-  parameters:
-    Arch: 'x86'
-    Platform: 'UWP'
-    PublishArtifacts: true
+- template: generateprojects.yml
 
-# Build UWP ARM
-- template: tasks/unitybuild.yml
-  parameters:
-    Arch: 'arm'
-    Platform: 'UWP'
-    UnityArgs: '-targetUwpSdk 10.0.18432.0'
-    PublishArtifacts: true
-    PackagingDir: 'ARM'
+- task: MSBuild@1
+  inputs:
+    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
+    msbuildArchitecture: 'x64'
+    platform: 'WindowsStandalone32'
+    configuration: 'InEditor'
+    createLogFile: true
+  displayName: 'Build InEditor WindowsStandalone32'
 
-# Build UWP x86 .NET backend
-- template: tasks/unitybuild.yml
-  parameters:
-    Arch: 'x86'
-    Platform: 'UWP'
-    PublishArtifacts: true
-    ScriptingBackend: '.NET'
+- task: MSBuild@1
+  inputs:
+    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
+    msbuildArchitecture: 'x64'
+    platform: 'WindowsStandalone32'
+    configuration: 'Player'
+    createLogFile: true
+  displayName: 'Build Player WindowsStandalone32'
+
+- task: MSBuild@1
+  inputs:
+    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
+    msbuildArchitecture: 'x64'
+    platform: 'WSA'
+    configuration: 'Player'
+    createLogFile: true
+  displayName: 'Build Player WSA'
 
 - template: assetretargeting.yml
