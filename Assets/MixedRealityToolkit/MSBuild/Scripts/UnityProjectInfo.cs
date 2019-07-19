@@ -244,9 +244,9 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
                 solutionTemplateText = Utilities.ReplaceTokens(solutionTemplateText, new Dictionary<string, string>()
                 {
                     { projectEntryTemplate, string.Join(string.Empty, projectEntries)},
-                    { configurationPlatformEntry, string.Join(string.Empty, configPlatforms)},
-                    { configurationPlatformMappingTemplate, string.Join(string.Empty, configurationMappings) },
-                    { configurationPlatformEnabledTemplate, string.Join(string.Empty, enabledConfigurations) }
+                    { configurationPlatformEntry, string.Join("\n", configPlatforms)},
+                    { configurationPlatformMappingTemplate, string.Join("\n", configurationMappings) },
+                    { configurationPlatformEnabledTemplate, string.Join("\n", enabledConfigurations) }
                 });
             }
             else
