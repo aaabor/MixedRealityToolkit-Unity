@@ -23,6 +23,7 @@ steps:
     platform: 'WindowsStandalone32'
     configuration: 'InEditor'
     createLogFile: true
+    restoreNugetPackages: true
   displayName: 'Build InEditor WindowsStandalone32'
 
 - task: MSBuild@1
@@ -32,6 +33,7 @@ steps:
     platform: 'WindowsStandalone32'
     configuration: 'Player'
     createLogFile: true
+    restoreNugetPackages: true
   displayName: 'Build Player WindowsStandalone32'
 
 - task: MSBuild@1
@@ -41,6 +43,7 @@ steps:
     platform: 'WSA'
     configuration: 'Player'
     createLogFile: true
+    restoreNugetPackages: true
   displayName: 'Build Player WSA'
 
 - template: assetretargeting.yml
