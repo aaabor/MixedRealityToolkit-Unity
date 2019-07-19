@@ -24,6 +24,7 @@ steps:
     configuration: 'InEditor'
     createLogFile: true
     restoreNugetPackages: true
+    msbuildVersion: '15.0'
   displayName: 'Build InEditor WindowsStandalone32'
 
 - task: MSBuild@1
@@ -34,6 +35,7 @@ steps:
     configuration: 'Player'
     createLogFile: true
     restoreNugetPackages: true
+    msbuildVersion: '15.0'
   displayName: 'Build Player WindowsStandalone32'
 
 - task: MSBuild@1
@@ -44,6 +46,7 @@ steps:
     configuration: 'Player'
     createLogFile: true
     restoreNugetPackages: true
+    msbuildVersion: '15.0'
   displayName: 'Build Player WSA'
 
 - template: assetretargeting.yml
