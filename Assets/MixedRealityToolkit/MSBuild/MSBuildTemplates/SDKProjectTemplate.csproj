@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <!-- Required for nuget restore -->
-    <TargetFrameworks>netstandard2.0;uap10.0;net46</TargetFrameworks>
+    <!--anborod: This is a weird thing, it is a required property (even if commented)-->
+    <!--<TargetFrameworks>netstandard2.0;uap10.0;net46</TargetFrameworks> -->
     
     <ProjectGuid><!--PROJECT_GUID_TOKEN--></ProjectGuid>
     <AllowUnsafeBlocks><!--ALLOW_UNSAFE_TOKEN--></AllowUnsafeBlocks>
