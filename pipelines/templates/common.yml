@@ -32,6 +32,7 @@ steps:
     createLogFile: true
     restoreNugetPackages: true
     msbuildVersion: '15.0'
+    msbuildArguments: '/p:BuildProjectReferences=false'
   displayName: 'Build InEditor WindowsStandalone32'
 
 - task: MSBuild@1
