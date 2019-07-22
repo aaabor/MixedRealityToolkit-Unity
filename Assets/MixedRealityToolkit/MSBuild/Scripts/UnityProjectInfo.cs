@@ -155,11 +155,6 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
                         { "<PROJECT_RELATIVE_PATH>", Path.GetFileName(projectInfo.ReferencePath.AbsolutePath) },
                         { "<PROJECT_GUID>", projectInfo.Guid.ToString().ToUpper() } }));
 
-            if (!projectEntryTemplateBody.EndsWith(Environment.NewLine))
-            {
-                toReturn.AppendLine();  // ensure that the intial line ends with a new line character
-            }
-
             if (projectInfo.ProjectDependencies.Count > 0)
             {
                 string projectDependencyStartSection = "    ProjectSection(ProjectDependencies) = postProject";
