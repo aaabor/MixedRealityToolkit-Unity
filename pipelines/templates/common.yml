@@ -56,6 +56,18 @@ steps:
     createLogFile: true
     restoreNugetPackages: false
     msbuildVersion: '15.0'
+    msbuildArguments: '/t:Restore /p:BuildProjectReferences=false'
+  displayName: 'NuGet Restore for Player WSA (Special)'
+
+- task: MSBuild@1
+  inputs:
+    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
+    msbuildArchitecture: 'x64'
+    platform: 'WSA'
+    configuration: 'Player'
+    createLogFile: true
+    restoreNugetPackages: false
+    msbuildVersion: '15.0'
     msbuildArguments: '/p:BuildProjectReferences=false'
   displayName: 'Build Player WSA'
 
