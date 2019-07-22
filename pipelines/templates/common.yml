@@ -30,7 +30,7 @@ steps:
     platform: 'WindowsStandalone32'
     configuration: 'InEditor'
     createLogFile: true
-    restoreNugetPackages: true
+    restoreNugetPackages: false
     msbuildVersion: '15.0'
     msbuildArguments: '/p:BuildProjectReferences=false'
   displayName: 'Build InEditor WindowsStandalone32'
@@ -42,7 +42,7 @@ steps:
     platform: 'WindowsStandalone32'
     configuration: 'Player'
     createLogFile: true
-    restoreNugetPackages: true
+    restoreNugetPackages: false
     msbuildVersion: '15.0'
     msbuildArguments: '/p:BuildProjectReferences=false'
   displayName: 'Build Player WindowsStandalone32'
@@ -54,7 +54,7 @@ steps:
     platform: 'WSA'
     configuration: 'Player'
     createLogFile: true
-    restoreNugetPackages: true
+    restoreNugetPackages: false
     msbuildVersion: '15.0'
     msbuildArguments: '/p:BuildProjectReferences=false'
   displayName: 'Build Player WSA'
