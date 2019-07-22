@@ -35,9 +35,21 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
         [MenuItem("MSBuild/Generate C# SDK Projects")]
         public static void GenerateSDKProjects()
         {
+            try
+            {
+                RunGenerateSDKProjects();
+                Debug.Log($"{nameof(GenerateSDKProjects)} Completed Succesfully.");
+            }
+            catch
+            {
+                Debug.LogError($"{nameof(GenerateSDKProjects)} Failed.");
+                throw;
+            }
+        }
+
+        private static void RunGenerateSDKProjects()
+        {
             // Create a copy of the packages as they might change after we create the MSBuild project
-
-
             string generatedProjectPath = Path.Combine(Utilities.MSBuildOutputFolder, "Projects");
             try
             {
@@ -45,7 +57,7 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
             }
             catch (IOException ex)
             {
-                if (ex.Message.Contains(@".vs\MRTK\v15\Server\sqlite3\db.lock"))
+                if (ex.Message.Contains(@"db.lock"))
                 {
                     Debug.LogError("Generated project appears to be still open with Visual Studio.");
                     throw new InvalidDataException("Generated project appears to be still open with Visual Studio.", ex);
@@ -70,10 +82,10 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
             CreateCommonPropsFile(platforms, editorPlatform, generatedProjectPath);
             UnityProjectInfo unityProjectInfo = new UnityProjectInfo(platforms, generatedProjectPath);
 
-            //// Read the solution template
+            // Read the solution template
             string solutionTemplateText = File.ReadAllText(Utilities.GetAssetsRelativePathFrom(TemplateFiles.Instance.MSBuildSolutionTemplatePath));
 
-            //// Read the project template
+            // Read the project template
             string projectTemplateText = File.ReadAllText(Utilities.GetAssetsRelativePathFrom(TemplateFiles.Instance.SDKProjectFileTemplatePath));
 
             unityProjectInfo.ExportSolution(solutionTemplateText, projectTemplateText, generatedProjectPath);
@@ -82,8 +94,6 @@ namespace Microsoft.MixedReality.Toolkit.MSBuild
             {
                 File.Copy(otherFile, Path.Combine(generatedProjectPath, Path.GetFileName(otherFile)));
             }
-
-            Debug.Log("Completed.");
         }
 
         private static void MakePackagesCopy(string msbuildFolder)
