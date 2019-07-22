@@ -44,6 +44,7 @@ steps:
     createLogFile: true
     restoreNugetPackages: true
     msbuildVersion: '15.0'
+    msbuildArguments: '/p:BuildProjectReferences=false'
   displayName: 'Build Player WindowsStandalone32'
 
 - task: MSBuild@1
@@ -55,6 +56,7 @@ steps:
     createLogFile: true
     restoreNugetPackages: true
     msbuildVersion: '15.0'
+    msbuildArguments: '/p:BuildProjectReferences=false'
   displayName: 'Build Player WSA'
 
 - template: assetretargeting.yml
