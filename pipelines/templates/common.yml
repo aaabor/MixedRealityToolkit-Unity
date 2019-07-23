@@ -5,70 +5,35 @@ steps:
 # This must happen before tests run, because if the build fails and tests attempt
 # to get run, Unity will hang showing a dialog (even when in batch mode).
 # This is the fastest build, since it doesn't produce an AppX.
-# - template: tasks/unitybuild.yml
-#   parameters:
-#     Arch: 'x86'
-#     Platform: 'Standalone'
+- template: tasks/unitybuild.yml
+  parameters:
+    Arch: 'x86'
+    Platform: 'Standalone'
 
 # Tests should run earlier in the process, so that engineers can get test failure
 # notifications earlier in the CI process.
-# - template: tests.yml
+- template: tests.yml
 
-- template: generateprojects.yml
+# Build UWP x86
+- template: tasks/unitybuild.yml
+  parameters:
+    Arch: 'x86'
+    Platform: 'UWP'
+    PublishArtifacts: true
 
-- task: 333b11bd-d341-40d9-afcf-b32d5ce6f23b@2  # NuGetCommand
-  inputs:
-    command: 'restore'
-    restoreSolution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
-    feedsToUse: 'select'
-  displayName: "Nuget Restore"
+# Build UWP ARM
+- template: tasks/unitybuild.yml
+  parameters:
+    Arch: 'arm'
+    Platform: 'UWP'
+    UnityArgs: '-targetUwpSdk 10.0.18432.0'
+    PublishArtifacts: true
+    PackagingDir: 'ARM'
 
-- task: MSBuild@1
-  inputs:
-    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
-    msbuildArchitecture: 'x64'
-    platform: 'WindowsStandalone32'
-    configuration: 'InEditor'
-    createLogFile: true
-    restoreNugetPackages: false
-    msbuildVersion: '15.0'
-    msbuildArguments: '/p:BuildProjectReferences=false'
-  displayName: 'Build InEditor WindowsStandalone32'
-
-- task: MSBuild@1
-  inputs:
-    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
-    msbuildArchitecture: 'x64'
-    platform: 'WindowsStandalone32'
-    configuration: 'Player'
-    createLogFile: true
-    restoreNugetPackages: false
-    msbuildVersion: '15.0'
-    msbuildArguments: '/p:BuildProjectReferences=false'
-  displayName: 'Build Player WindowsStandalone32'
-
-- task: MSBuild@1
-  inputs:
-    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
-    msbuildArchitecture: 'x64'
-    platform: 'WSA'
-    configuration: 'Player'
-    createLogFile: true
-    restoreNugetPackages: false
-    msbuildVersion: '15.0'
-    msbuildArguments: '/t:Restore /p:BuildProjectReferences=false'
-  displayName: 'NuGet Restore for Player WSA (Special)'
-
-- task: MSBuild@1
-  inputs:
-    solution: '$(Build.SourcesDirectory)\MSBuild\Projects\MRTK.sln'
-    msbuildArchitecture: 'x64'
-    platform: 'WSA'
-    configuration: 'Player'
-    createLogFile: true
-    restoreNugetPackages: false
-    msbuildVersion: '15.0'
-    msbuildArguments: '/p:BuildProjectReferences=false'
-  displayName: 'Build Player WSA'
-
-- template: assetretargeting.yml
+# Build UWP x86 .NET backend
+- template: tasks/unitybuild.yml
+  parameters:
+    Arch: 'x86'
+    Platform: 'UWP'
+    PublishArtifacts: true
+    ScriptingBackend: '.NET'
