@@ -1,10 +1,10 @@
 # CI build for developer builds.
 parameters:
-  packagingEnabled: true
-  packagePublishing: true
+  packagingEnabled: false
+  packagePublishing: false
 
 steps:
-- template: common.yml
+#- template: common.yml
 - template: compilemsbuild.yml
 - ${{ if eq(parameters.packagingEnabled, true) }}:
   - template: tasks/unitypackages.yml
